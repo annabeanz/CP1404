@@ -26,7 +26,7 @@ def get_ratings(results, scores):
 
 def generate_random_scores(number_of_scores, scores):
     for score in range(number_of_scores):
-        score = random.randint(0, 99)
+        score = random.randint(0, 100)
         scores.append(score)
     return scores
 

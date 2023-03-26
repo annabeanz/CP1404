@@ -6,6 +6,8 @@ Temperature conversion using text files
 import random
 
 NUMBER_OF_TEMPERATURES = 20
+LOWEST_TEMP = -200
+HIGHEST_TEMP = 200
 NEW_FILE = "temps_input"
 OUT_FILE = "temps_output"
 MODE = "f to c"
@@ -74,7 +76,7 @@ def process_in_file(file_name):
 def generate_temps(in_temp):
     """generates a number of random temperatures and stores in a list"""
     for each in range(NUMBER_OF_TEMPERATURES):
-        temp = round(random.uniform(-200, 200), 2)
+        temp = round(random.uniform(LOWEST_TEMP, HIGHEST_TEMP), 2)
         in_temp.append(temp)
 
 
