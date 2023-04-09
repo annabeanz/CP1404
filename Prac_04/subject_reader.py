@@ -3,7 +3,7 @@ CP1404/CP5632 Practical
 Data file -> lists program
 """
 
-FILENAME = "subject_data.txt"
+FILENAME = "subject_data"
 
 
 def main():
@@ -22,8 +22,12 @@ def get_data():
         print(parts)  # See what the parts look like (notice the integer is a string)
         parts[2] = int(parts[2])  # Make the number an integer (ignore PyCharm's warning)
         print(parts)  # See if that worked
+        details = format_details(parts)
+        print(details)
         print("----------")
     input_file.close()
 
+def format_details(parts):
+    return f"{parts[0]} is taught by {parts[1]} and has {parts[2]} students "
 
 main()

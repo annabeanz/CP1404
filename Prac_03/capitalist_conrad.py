@@ -1,42 +1,102 @@
-"""
-CP1404/CP5632 - Practical
-Capitalist Conrad wants a stock price simulator for a volatile stock.
-The price starts off at $10.00, and, at the end of every day there is
-a 50% chance it increases by 0 to 10%, and
-a 50% chance that it decreases by 0 to 5%.
-If the price rises above $1000, or falls below $0.01, the program should end.
-The price should be displayed to the nearest cent (e.g. $33.59, not $33.5918232901)
-"""
-import random
+import os.path
 
-MAX_INCREASE = 0.175  # 17.5%
-MAX_DECREASE = 0.05  # 5%
-MIN_PRICE = 0.01
-MAX_PRICE = 100.0
-INITIAL_PRICE = 10.0
-OUTPUT_FILE = "capitalist_conrad_output"
+def create_message():
+    message = []
+    key = input("Enter key for the message: ")
+    num_lines = int(input("Enter number of lines for the message: "))
+    print("Enter message content:")
+    for i in range(num_lines):
+        line = input()
+        message.append(line)
+    messages[key] = message
 
-number_of_days = 1
-price = INITIAL_PRICE
-print(f"On day {number_of_days} the price is: ${price:,.2f}")
-out_file = open(OUTPUT_FILE, 'w')
-
-while MIN_PRICE <= price <= MAX_PRICE:
-    price_change = 0
-    # generate a random integer of 1 or 2
-    # if it's 1, the price increases, otherwise it decreases
-    if random.randint(1, 2) == 1:
-        # generate a random floating-point number
-        # between 0 and MAX_INCREASE
-        price_change = random.uniform(0, MAX_INCREASE)
+def view_all_messages():
+    if len(messages) == 0:
+        print("No messages found.")
     else:
-        # generate a random floating-point number
-        # between negative MAX_DECREASE and 0
-        price_change = random.uniform(-MAX_DECREASE, 0)
+        print("Keys:")
+        for key in messages:
+            print(key)
+        print()
+        key = input("Enter key for message to view: ")
+        if key in messages:
+            message = messages[key]
+            print("\n".join(message))
+        else:
+            print("Key not found.")
 
-    price *= (1 + price_change)
-    number_of_days += 1
-    out = f"On day {number_of_days} the price is: ${price:,.2f}"
-    print(out)
-    print(f"{out}", file=out_file)
-out_file.close()
+def delete_message():
+    if len(messages) == 0:
+        print("No messages found.")
+    else:
+        print("Keys:")
+        for key in messages:
+            print(key)
+        print()
+        key = input("Enter key for message to delete: ")
+        if key in messages:
+            del messages[key]
+            print("Message deleted.")
+        else:
+            print("Key not found.")
+
+def copy_paste_message():
+    key = input("Enter key for the message: ")
+    message = input("Enter message content: ")
+    messages[key] = message.splitlines()
+
+def save_messages_to_file():
+    with open("messages.txt", "w") as file:
+        for key, message in messages.items():
+            file.write(key + "\n")
+            for line in message:
+                file.write(line + "\n")
+            file.write("\n")
+
+def load_messages_from_file():
+    if not os.path.isfile("messages.txt"):
+        return
+    with open("messages.txt", "r") as file:
+        lines = file.readlines()
+        key = ""
+        message = []
+        for line in lines:
+            if line.strip() == "":
+                messages[key] = message
+                key = ""
+                message = []
+            elif key == "":
+                key = line.strip()
+            else:
+                message.append(line.strip())
+
+messages = {}
+
+load_messages_from_file()
+
+while True:
+    print("Menu:")
+    print("1. Create message")
+    print("2. View all messages")
+    print("3. View specific message")
+    print("4. Delete message")
+    print("5. Copy and paste message")
+    print("6. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        create_message()
+    elif choice == "2":
+        view_all_messages()
+    elif choice == "3":
+        view_all_messages()
+    elif choice == "4":
+        delete_message()
+    elif choice == "5":
+        copy_paste_message()
+    elif choice == "6":
+        save_messages_to_file()
+        break
+    else:
+        print("Invalid choice. Please try again.")
