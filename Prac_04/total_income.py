@@ -15,6 +15,7 @@ def main():
 
 
 def display_report(incomes):
+    """Displays the report information for each month with a running total"""
     print("\nIncome Report\n-------------")
     total = 0
     for i, income in enumerate(incomes, start=1):
