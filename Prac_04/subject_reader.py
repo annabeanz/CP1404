@@ -24,7 +24,6 @@ def get_data():
         print(parts)  # See if that worked
         details = format_details(parts)
         print(details)
-        print(len(parts))
         print("----------")
     input_file.close()
 
