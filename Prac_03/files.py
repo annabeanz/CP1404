@@ -24,11 +24,12 @@ def question_02():
 
 
 def question_03():
-    in_file_lines = open("number.txt", "r")
+    in_file_lines = open("numbers", "r")
     number_1 = in_file_lines[0]
     number_2 = in_file_lines[1]
     total = number_1 + number_2
     print(total)
+question_03()
 
 
 def question_04():
