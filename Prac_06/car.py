@@ -11,6 +11,7 @@ class Car:
         """
         self.fuel = fuel
         self._odometer = 0
+        self.car_class = self
 
     def add_fuel(self, amount):
         """Add amount to the car's fuel."""
@@ -31,6 +32,5 @@ class Car:
         return distance
 
     def __str__(self):
-        return f"fuel: {self.fuel}, odometer: {self._odometer} "
-
-# dodi
+        return f"fuel: {self.fuel}, odometer: {self._odometer} ",\
+               f"Car: {self.car_class}, fuel: {self.fuel}, odometer: {self._odometer}"
